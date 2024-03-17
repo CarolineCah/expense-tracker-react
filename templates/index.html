@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Expense Tracker</title>
+    <!-- Include HTMX -->
+    <script src="https://unpkg.com/htmx.org"></script>
+  </head>
+  <body>
+    <h1>Expense Tracker</h1>
+    <form
+      hx-post="/add-expense"
+      hx-target="this"
+      hx-swap="outerHTML"
+      method="POST"
+    >
+      <input type="text" name="name" placeholder="Expense Name" required />
+      <input type="number" name="amount" placeholder="Amount" required />
+      <select name="category">
+        <option value="Food">Food</option>
+        <option value="Utilities">Utilities</option>
+        <option value="Entertainment">Entertainment</option>
+      </select>
+      <button type="submit">Add Expense</button>
+    </form>
+    <ul>
+      {% for expense in expenses %}
+      <li>
+        {{ expense.name }} - ${{ expense.amount }} ({{ expense.category }})
+      </li>
+      {% endfor %}
+    </ul>
+  </body>
+</html>
